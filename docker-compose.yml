@@ -2,7 +2,7 @@
 services:
   db:
     image: mysql:8.0
-    container_name: ecommerce-db
+    container_name: beatflow-db
     restart: always
     environment:
       MYSQL_DATABASE: beatflow
@@ -12,7 +12,7 @@ services:
     volumes:
       - db_data:/var/lib/mysql
     networks:
-      - ecommerce-net
+      - beatflow-net
 
   backend:
     build:
@@ -21,7 +21,7 @@ services:
     container_name: musicstream-backend
     restart: always
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/ecommerce
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/beatflow
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: root
       SPRING_JPA_HIBERNATE_DDL_AUTO: update
@@ -30,7 +30,7 @@ services:
     ports:
       - "8081:8081"
     networks:
-      - ecommerce-net
+      - beatflow-net
 
   frontend:
     build:
@@ -43,7 +43,7 @@ services:
     depends_on:
       - backend
     networks:
-      - ecommerce-net
+      - beatflow-net
 
 volumes:
   db_data:
